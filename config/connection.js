@@ -1,5 +1,14 @@
-const { connect, connection } = require('mongoose');
+const mongoose = require('mongoose');
 
-connect('mongodb://localhost/fullnameVirtual');
+mongoose.connect(
 
-module.exports = connection;
+    process.env.MONGODB_URI ||   "mongodb://localhost:27017/networkDB",
+{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}
+);
+
+mongoose.set('debug', true);
+
+module.exports = mongoose.connection;
