@@ -12,9 +12,9 @@ const {
 
 // These are simplified versions of the thoughts controller based around the method they each address.
 router.route('/').get(getThoughts).post(createThought);
-router.route('/:id').get(getSingleThoughts).put(updateThought).delete(deleteThought);
+router.route('/:thoughtId').get(getSingleThoughts).put(updateThought).delete(deleteThought);
 
-router.route('/:thoughtId/reactions').post(addReaction);
-router.route('/:thoughtId/reactions/:reactionId').delete(deleteReaction);
+router.route('/:thoughtId/reactions/').post(addReaction);
+router.route('/:thoughtId/reactions/:reactionId').put(deleteReaction);
 
 module.exports = router;

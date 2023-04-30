@@ -46,9 +46,9 @@ module.exports = {
   async updateThought(req, res) {
     try {
       const thought = await Thought.findOneAndUpdate(
-        { _id: req.params.thoughtid },
+        { _id: req.params.thoughtId },
         { $set: req.body },
-        { runValidators: true, new: true }
+        { new: true }
       );
 
       if (!thought) {
@@ -64,7 +64,7 @@ module.exports = {
   async deleteThought(req, res) {
     try {
       const thought = await Thought.findOneAndRemove({
-        _id: req.params.id,
+        _id: req.params.thoughtId,
       });
 
       if (!thought) {
@@ -83,14 +83,14 @@ module.exports = {
     try {
       const thought = await Thought.findOneAndUpdate(
         { _id: req.params.thoughtId },
-        { $addToSet: { reactions: req.body } },
-        { runValidators: true, new: true }
+        { $push: { reactions: body }},
+        { new: true }
       );
 
       if (!thought) {
         return res
           .status(404)
-          .json({ message: 'No thought found with that ID :(' });
+          .json({ message: 'No thought found any id resembling that' });
       }
 
       res.json(thought);
@@ -103,8 +103,8 @@ module.exports = {
     try {
       const thought = await Thought.findOneAndUpdate(
         { _id: req.params.thoughtId },
-        { $pull: { reactions: { reactionId: req.params.reactionId } } },
-        { runValidators: true, new: true }
+        { $pull: { reactionId: req.params.reactionId }},
+        { new: true }
       );
 
       if (!thought) {

@@ -11,7 +11,7 @@ module.exports = {
   },
   async getSingleUser(req, res) {
     try {
-      const user = await User.findOne({ _id: req.params.id });
+      const user = await User.findOne({ _id: req.params.userId });
 
       if (!user) {
         return res.status(404).json({ message: "No user with that ID" });
@@ -35,13 +35,13 @@ module.exports = {
   async updateUser(req, res) {
     try {
       const user = await User.findOneAndUpdate(
-        { _id: req.params.id },
+        { _id: req.params.userId },
         { $set: req.body },
-        { runValidators: true, new: true }
+        { new: true }
       );
 
       if (!user) {
-        res.status(404).json({ message: "No thoughts with this id!" });
+        res.status(404).json({ message: "No user exists with this id!" });
       }
 
       res.json(thought);
@@ -52,11 +52,11 @@ module.exports = {
   async deleteUser(req, res) {
     try {
       const user = await User.findOneAndDelete({
-        _id: req.params.userid,
+        _id: req.params.userId,
       });
 
       if (!user) {
-        res.status(404).json({ message: "No thoughts with that ID" });
+        res.status(404).json({ message: "No user exists with that ID" });
       }
 
       await Thought.deleteMany({ _id: { $in: dbUserData.thoughts } });
@@ -70,14 +70,14 @@ async addFriend(req, res) {
   try {
     const user = await User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $addToSet: { friends: req.body } },
-      { runValidators: true, new: true }
+      { $addToSet: { friends: req.params.friendId }},
+      { new: true }
     );
 
     if (!user) {
       return res
         .status(404)
-        .json({ message: 'No user found with that ID :(' });
+        .json({ message: 'No user found with that ID' });
     }
 
     res.json(user);
@@ -91,7 +91,7 @@ async deleteFriend(req, res) {
     const user = await User.findOneAndUpdate(
       { _id: req.params.usersId },
       { $pull: { friendId: req.params.friendId } },
-      { runValidators: true, new: true }
+      { new: true }
     );
 
     if (!user) {
