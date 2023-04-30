@@ -1,7 +1,7 @@
 // npm i --save-dev @faker-js/faker
 const { faker } = require("@faker-js/faker");
 const db = require("../config/connection");
-const { Thought, User } = require("../models");
+const { Thought, User } = require("../Models");
 
 db.once("open", async () => {
   await Thought.deleteMany({});

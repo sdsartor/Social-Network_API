@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { deleteReaction, addReaction } = require('../../Controllers/thoughtController');
 const {
+    // These are the functions under the user controller.
     createUser,
     getUsers,
     getSingleUser,

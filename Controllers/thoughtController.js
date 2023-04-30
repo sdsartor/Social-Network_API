@@ -1,7 +1,7 @@
 const Thought = require("../Models/Thoughts");
 const User = require("../Models/User");
-
-
+// All of this was heavily inspired by the mini project.
+// All of these function will be individually exported by referencing the function names in the routes folder.
 module.exports = {
   async getThoughts(req, res) {
     Thought.find({})
@@ -17,6 +17,7 @@ module.exports = {
       res.send(400);
     });
 },
+// This will pull a single id.
   async getSingleThoughts(req, res) {
     try {
       const thoughts = await Thought.findOne({
@@ -32,6 +33,7 @@ module.exports = {
       res.status(500).json(err);
     }
   },
+  // This should create a new thought by reguiring the data to be parsed into a readable form.
   async createThought(req, res) {
     try {
       const dbThoughtData = await Thought.create(req.body);
@@ -40,7 +42,7 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-
+// This function will find a certain id and update the information under the id.
   async updateThought(req, res) {
     try {
       const thought = await Thought.findOneAndUpdate(
@@ -58,7 +60,7 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-
+// This will find an id and allow for it to be deleted.
   async deleteThought(req, res) {
     try {
       const thought = await Thought.findOneAndRemove({
@@ -96,7 +98,7 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-
+// This will delete the submodel of thoughts by id.
   async deleteReaction(req, res) {
     try {
       const thought = await Thought.findOneAndUpdate(

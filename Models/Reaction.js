@@ -1,4 +1,4 @@
-
+// This is an unused page I made to try multiple ways to address sub models.
 const {
     Schema,
     Types
@@ -6,7 +6,6 @@ const {
 const moment = require('moment');
 
 const reactionSchema = new Schema({
-    //set id to avoid mix up with parent thought id
     reactionId: {
         type: Schema.Types.ObjectId, 
         default: () => new Types.ObjectId()

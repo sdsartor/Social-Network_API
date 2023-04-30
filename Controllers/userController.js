@@ -22,7 +22,7 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-
+// This will make a new user.
   async createUser(req, res) {
     try {
       const dbUserData = await User.create(req.body);
@@ -85,7 +85,7 @@ async addFriend(req, res) {
     res.status(500).json(err);
   }
 },
-
+// This will remove friends from a user that has been created.
 async deleteFriend(req, res) {
   try {
     const user = await User.findOneAndUpdate(
